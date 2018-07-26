@@ -43,7 +43,7 @@ class CreateGoalVC: UIViewController, UITextViewDelegate {
                 return
             }
             finishGoalVC.initData(description: goalTextView.text!, type: goalType)
-            presentDetail(finishGoalVC)
+            presentingViewController?.presentSecondaryDetail(finishGoalVC)
         }
     }
     @IBAction func backBtnWasPressed(_ sender: Any) {
