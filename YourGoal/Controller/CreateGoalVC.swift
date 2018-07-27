@@ -53,4 +53,5 @@ class CreateGoalVC: UIViewController, UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         goalTextView.text = ""
     }
+    
 }
