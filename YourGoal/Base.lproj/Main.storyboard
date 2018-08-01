@@ -143,17 +143,38 @@
                                                         <constraint firstItem="fdw-Tv-qCH" firstAttribute="leading" secondItem="NdK-Uf-MjR" secondAttribute="leading" id="xMS-KD-aBA"/>
                                                     </constraints>
                                                 </stackView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VVS-e8-kcB">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GOAL COMPLETE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tgA-kV-BlS">
+                                                            <rect key="frame" x="87" y="16.5" width="201" height="31.5"/>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-Heavy" family="Avenir Next" pointSize="23"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="1" green="0.86827633836330931" blue="0.57635185718255488" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstItem="tgA-kV-BlS" firstAttribute="centerY" secondItem="VVS-e8-kcB" secondAttribute="centerY" id="AtI-k2-Eg6"/>
+                                                        <constraint firstItem="tgA-kV-BlS" firstAttribute="centerX" secondItem="VVS-e8-kcB" secondAttribute="centerX" id="MW0-eW-Q4L"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="9lg-Yd-I2o" secondAttribute="bottom" constant="10" id="70l-hb-FX7"/>
                                                 <constraint firstAttribute="trailing" secondItem="9lg-Yd-I2o" secondAttribute="trailing" constant="15" id="FVf-CC-4sL"/>
                                                 <constraint firstItem="NdK-Uf-MjR" firstAttribute="top" secondItem="wd2-ur-0Hc" secondAttribute="top" constant="5" id="J4A-0e-CDE"/>
                                                 <constraint firstAttribute="bottom" secondItem="NdK-Uf-MjR" secondAttribute="bottom" constant="5" id="KKh-jK-NDj"/>
+                                                <constraint firstItem="VVS-e8-kcB" firstAttribute="leading" secondItem="wd2-ur-0Hc" secondAttribute="leading" id="Mxq-v9-VRi"/>
                                                 <constraint firstItem="9lg-Yd-I2o" firstAttribute="top" secondItem="wd2-ur-0Hc" secondAttribute="top" constant="10" id="bPB-SW-G6j"/>
+                                                <constraint firstAttribute="bottom" secondItem="VVS-e8-kcB" secondAttribute="bottom" id="dn9-Za-TQa"/>
+                                                <constraint firstAttribute="trailing" secondItem="VVS-e8-kcB" secondAttribute="trailing" id="njf-Ld-wY1"/>
                                                 <constraint firstItem="NdK-Uf-MjR" firstAttribute="leading" secondItem="wd2-ur-0Hc" secondAttribute="leading" constant="15" id="rA6-jA-mrv"/>
+                                                <constraint firstItem="VVS-e8-kcB" firstAttribute="top" secondItem="wd2-ur-0Hc" secondAttribute="top" id="vNP-nl-oLD"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="completionView" destination="VVS-e8-kcB" id="O81-73-Nrk"/>
                                             <outlet property="goalDescriptionLbl" destination="fZF-J2-Ovs" id="gFE-u4-V7K"/>
                                             <outlet property="goalProgressLbl" destination="9lg-Yd-I2o" id="d0f-Kf-gOS"/>
                                             <outlet property="goalTypeLbl" destination="we9-yU-mfH" id="59D-Ig-Vqa"/>
