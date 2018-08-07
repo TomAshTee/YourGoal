@@ -18,6 +18,7 @@ class GoalsVC: UIViewController {
     
     var goals: [Goal] = []
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -34,7 +35,7 @@ class GoalsVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         
         // Hide Undo View and Button under scren for animation when its necessary
-        self.undoView.frame.origin.y += 40
+        //self.undoView.frame.origin.y += 40
     }
     
     override func viewDidLayoutSubviews() {
@@ -67,6 +68,21 @@ class GoalsVC: UIViewController {
         presentDetail(createGoalVC)
     }
     @IBAction func undoBtnWasPressed(_ sender: Any) {
+        guard let managedContext = appDelegate?.persistentContainer.viewContext else {
+            return
+        }
+        managedContext.undoManager?.undo()
+        
+//        do {
+//            try managedContext.save()
+//            print("Successfully restored goal.")
+//        } catch {
+//            debugPrint("Could not restored goal: \(error.localizedDescription)")
+//        }
+        
+        fetchCoreDataObject()
+        tableView.reloadData()
+        moveDownUndoview()
         
     }
     
@@ -96,10 +112,11 @@ extension GoalsVC: UITableViewDataSource, UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .destructive, title: "DELETE") { (rowAction, indexPath) in
+           
             self.removeGoal(atIndexPath: indexPath)
             self.fetchCoreDataObject()
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            self.animatedUndoView()
+            self.moveUpUndoView()
         }
         let addAction = UITableViewRowAction(style: .normal, title: "ADD 1") { (rowAction, indexPath) in
             self.setProgrss(atIndexPath: indexPath)
@@ -116,9 +133,17 @@ extension GoalsVC: UITableViewDataSource, UITableViewDelegate {
 
 extension GoalsVC {
     
-    func animatedUndoView(){
+    func moveUpUndoView(){
         UIView.animate(withDuration: 1, animations: {
-            self.undoView.frame.origin.y -= 40
+            if self.view.frame.height <= self.undoView.frame.origin.y {
+               self.undoView.frame.origin.y -= 40
+            }
+        }, completion: nil)
+    }
+    
+    func moveDownUndoview() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.undoView.frame.origin.y += 40
         }, completion: nil)
     }
     
@@ -144,7 +169,7 @@ extension GoalsVC {
         guard let managetContext = appDelegate?.persistentContainer.viewContext else {
             return
         }
-        
+        managetContext.undoManager = UndoManager()
         managetContext.delete(goals[indexPath.row])
         
         do {
