@@ -14,6 +14,7 @@ let appDelegate = UIApplication.shared.delegate as? AppDelegate
 class GoalsVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var undoView: UIView!
     
     var goals: [Goal] = []
     
@@ -28,6 +29,18 @@ class GoalsVC: UIViewController {
         super.viewWillAppear(animated)
         self.fetchCoreDataObject()
         tableView.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        // Hide Undo View and Button under scren for animation when its necessary
+        self.undoView.frame.origin.y += 40
+    }
+    
+    override func viewDidLayoutSubviews() {
+        
+        // Hide Undo View and Button under scren for animation when its necessary
+        self.undoView.frame.origin.y += 40
     }
     
     func fetchCoreDataObject() {
@@ -52,6 +65,9 @@ class GoalsVC: UIViewController {
             return
         }
         presentDetail(createGoalVC)
+    }
+    @IBAction func undoBtnWasPressed(_ sender: Any) {
+        
     }
     
 }
@@ -83,7 +99,7 @@ extension GoalsVC: UITableViewDataSource, UITableViewDelegate {
             self.removeGoal(atIndexPath: indexPath)
             self.fetchCoreDataObject()
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            
+            self.animatedUndoView()
         }
         let addAction = UITableViewRowAction(style: .normal, title: "ADD 1") { (rowAction, indexPath) in
             self.setProgrss(atIndexPath: indexPath)
@@ -99,6 +115,12 @@ extension GoalsVC: UITableViewDataSource, UITableViewDelegate {
 
 
 extension GoalsVC {
+    
+    func animatedUndoView(){
+        UIView.animate(withDuration: 1, animations: {
+            self.undoView.frame.origin.y -= 40
+        }, completion: nil)
+    }
     
     func setProgrss(atIndexPath indexPath: IndexPath){
         guard let managetContext = appDelegate?.persistentContainer.viewContext else {
